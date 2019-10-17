@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Problem 8(b): Experimenting with rtg, nn_baseline
+
+# Run experiments
+mkdir -p data/
+rm -rf data/p8b_*
+b=50000
+l=0.020
+name1="p8b_hc_b"$b"_r"$l
+name2="p8b_hc_b"$b"_r"$l"_rtg"
+name3="p8b_hc_b"$b"_r"$l"_nn_baseline"
+name4="p8b_hc_b"$b"_r"$l"_rtg_nn_baseline"
+
+#python train_pg_f18.py HalfCheetah-v2 -ep 150 --discount 0.95 -n 100 -e 3 -l 2 -s 32 -b $b -lr $l --exp_name $name1 
+python train_pg_f18.py HalfCheetah-v2 -ep 150 --discount 0.95 -n 100 -e 3 -l 2 -s 32 -b $b -lr $l -rtg --exp_name $name2
+python train_pg_f18.py HalfCheetah-v2 -ep 150 --discount 0.95 -n 100 -e 3 -l 2 -s 32 -b $b -lr $l --nn_baseline --exp_name $name3
+python train_pg_f18.py HalfCheetah-v2 -ep 150 --discount 0.95 -n 100 -e 3 -l 2 -s 32 -b $b -lr $l -rtg --nn_baseline --exp_name $name4
+
+# Plots
+p8b_files=()
+for dir in data/p8b_*;
+do
+	p8b_files+=("$dir")
+done
+
+mkdir -p plots/
+rm -rf plots/p8b*
+python plot.py ${p8b_files[@]} --value AverageReturn --save_name plots/p8b.png

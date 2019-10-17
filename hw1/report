@@ -1,0 +1,24 @@
+***Behavioral Cloning***
+
+Architecture: 1 hidden layer of size 128 units
+
+Data used: 100 rollouts -> 100,000 iterations
+Number of epochs: 500
+
+Reporting results on 20 rollouts
+Hopper:
+	- Expert policy: Mean = 3778.79126, Std = 3.03886
+	- Trained model: Mean = 3779.27708, Std = 3.07484
+Humanoid:
+	- Expert policy: Mean = 10306.80848, Std = 979.44124
+	- Trained model: Mean = 407.63263, Std = 23.56048
+
+For part (c) experimented with datasize for Hopper. As data size increases, mean reward increases
+upto a certain point and then remains constant. Rationale: The size of data is one of the most
+important thing for a model. If the data is not too much, the model will never be able to generalize
+well to the entire distribution from which the data is drawn.
+
+
+Reacher:
+	- Expert policy: Mean = -4.075356738572753, Std = 1.7772863778054524
+

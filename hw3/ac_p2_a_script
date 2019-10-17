@@ -1,0 +1,16 @@
+#!/bin/bash
+
+mkdir -p data/
+rm -rf data/ac_p2_a_*
+
+python train_ac_f18.py InvertedPendulum-v2 -ep 1000 --discount 0.95 -n 100 -e 3 -l 2 -s 64 -b 5000 -lr 0.01 --exp_name p2_a_10_10 -ntu 10 -ngsptu 10
+
+# Plot
+f=()
+for dir in data/ac_p2_a_*;
+do
+        f+=("$dir")
+done
+
+python plot.py ${f[@]} --value AverageReturn
+

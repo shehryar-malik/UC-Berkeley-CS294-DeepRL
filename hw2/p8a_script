@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Problem 8(a): Searching over batch sizes, learning rates
+
+# Run experiments
+mkdir -p data/
+rm -rf data/p8a_*
+for b in 10000 30000 50000;
+do
+	for l in 0.005 0.010 0.020;
+	do
+		name="p8a_hc_b"$b"_r"$l
+		echo "$name"
+		python train_pg_f18.py HalfCheetah-v2 -ep 150 --discount 0.9 -n 100 -e 3 -l 2 -s 32 -b ${b[@]} -lr ${l[@]} -rtg --nn_baseline --exp_name $name
+	done
+done
+
+# Plots
+p8a_files=()
+for dir in data/p8a_*;
+do
+	p8a_files+=("$dir")
+done
+
+mkdir -p plots/
+rm -rf plots/p8a*
+python plot.py ${p8a_files[@]} --value AverageReturn --save_name plots/p8a.png

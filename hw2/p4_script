@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Problem 4
+# Run experiments
+mkdir -p data/
+rm -rf data/p4_*
+python train_pg_f18.py CartPole-v0 -n 100 -b 1000 -e 3 -dna --exp_name p4_sb_no_rtg_dna
+python train_pg_f18.py CartPole-v0 -n 100 -b 1000 -e 3 -rtg -dna --exp_name p4_sb_rtg_dna
+python train_pg_f18.py CartPole-v0 -n 100 -b 1000 -e 3 -rtg --exp_name p4_sb_rtg_na
+python train_pg_f18.py CartPole-v0 -n 100 -b 5000 -e 3 -dna --exp_name p4_lb_no_rtg_dna
+python train_pg_f18.py CartPole-v0 -n 100 -b 5000 -e 3 -rtg -dna --exp_name p4_lb_rtg_dna
+python train_pg_f18.py CartPole-v0 -n 100 -b 5000 -e 3 -rtg --exp_name p4_lb_rtg_na
+
+# Plots
+p4_sb_files=()
+for dir in data/p4_sb*;
+do
+	p4_sb_files+=("$dir")
+done
+p4_lb_files=()
+for dir in data/p4_lb*;
+do
+	p4_lb_files+=("$dir")
+done
+
+mkdir -p plots/
+rm -rf plots/p4*
+python plot.py ${p4_sb_files[@]} --value AverageReturn --save_name plots/p4_sb.png
+python plot.py ${p4_lb_files[@]} --value AverageReturn --save_name plots/p4_lb.png

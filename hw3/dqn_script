@@ -1,0 +1,8 @@
+Question 1:
+
+
+Question 2:
+	python run_dqn_lander.py --double_vs_vanilla_q
+
+Question 3:
+	python run_dqn_lander.py --sweep_lr

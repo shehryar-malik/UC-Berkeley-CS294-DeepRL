@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Problem 5
+
+# Run experiments
+mkdir -p data/
+rm -rf data/p5_*
+for b in 1000 3000 5000;
+do
+	for l in 0.005 0.010 0.020;
+	do
+		name="p5_hc_b"$b"_r"$l
+		echo "$name"
+		python train_pg_f18.py InvertedPendulum-v2 -ep 1000 --discount 0.9 -n 100 -e 3 -l 2 -s 64 -b ${b[@]} -lr ${l[@]} -rtg --exp_name $name
+	done
+done
+
+# Plots
+p5_files=()
+for dir in data/p5_*;
+do
+	p5_files+=("$dir")
+done
+
+mkdir -p plots/
+rm -rf plots/p5*
+python plot.py ${p5_files[@]} --value AverageReturn #--save_name plots/p5.png
