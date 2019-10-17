@@ -17,10 +17,10 @@ See the hw5a.pdf in this folder for further instructions.
 
 # Solutions
 
-**Problem 1**![](plots\a5_problem_1.png)
+**Problem 1**![](plots/a5_problem_1.png)
 
-**Problem 2**![](plots\a5_problem_2.png)
+**Problem 2**![](plots/a5_problem_2.png)
 
-**Problem 3**![](plots\a5_problem_3.png)
+**Problem 3**![](plots/a5_problem_3.png)
 
-**Problem 4**![](plots\a5_problem_4.png)
+**Problem 4**![](plots/a5_problem_4.png)

@@ -1,6 +1,6 @@
 **Problem 1**
 
-![](plots\a4_q1.jpg)
+![](plots/a4_q1.jpg)
 
 **Problem 2**
 
@@ -42,12 +42,12 @@ This is the log file:
 
 **Problem 3a**
 
-![](plots\a4_q3_a.jpg)
+![](plots/a4_q3_a.jpg)
 
 **Problem 3b**
 
-![](plots\a4_q3_b_actions.jpg)
+![](plots/a4_q3_b_actions.jpg)
 
-![](plots\a4_q3_b_mpc_horizon.jpg)
+![](plots/a4_q3_b_mpc_horizon.jpg)
 
-![](plots\a4_q3_b_nn_layers.jpg)
+![](plots/a4_q3_b_nn_layers.jpg)

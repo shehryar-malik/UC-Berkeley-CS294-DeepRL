@@ -30,20 +30,20 @@ I am still trying to arrange for some computational resources to run this proble
 
 **Problem 2**
 
-The following graph plots the average rewards for both the double Q-learning and vanilla Q-learning algorithms on the Lunar Lander game.![](plots\a3_dqn_2_vdql_ll.png)
+The following graph plots the average rewards for both the double Q-learning and vanilla Q-learning algorithms on the Lunar Lander game.![](plots/a3_dqn_2_vdql_ll.png)
 
 Clearly, double Q-learning performs much better than vanilla Q-learning.
 
 **Problem 3**
 
-We experiment with the learning rate. The graph below shows the average rewards plotted for four different settings of the learning rate for the Lunar Lander game.![](plots\a3_dqn_3_lr_ll.png)
+We experiment with the learning rate. The graph below shows the average rewards plotted for four different settings of the learning rate for the Lunar Lander game.![](plots/a3_dqn_3_lr_ll.png)
 
 It can be seen from the graph that a high learning rate (0.1) decreases the average rewards significantly. As the learning rate is lowered from 0.1 to 0.001 the average rewards increase. However, further lowering the learning rate to 0.0001 decreases the average rewards.
 
 ### Actor-Critic Algorithm
 
-**Problem 1**![](plots\a3_ac_p1.png)
+**Problem 1**![](plots/a3_ac_p1.png)
 
-**Problem 2: Inverted Pendulum** ![](plots\a3_ac_p2_a.png)
+**Problem 2: Inverted Pendulum** ![](plots/a3_ac_p2_a.png)
 
-**Problem 2: Half Cheetah** ![](plots\a3_ac_p2_b.png)
+**Problem 2: Half Cheetah** ![](plots/a3_ac_p2_b.png)
