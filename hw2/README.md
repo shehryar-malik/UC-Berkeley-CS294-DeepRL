@@ -21,83 +21,12 @@ See the [HW2 PDF](http://rail.eecs.berkeley.edu/deeprlcourse/static/homeworks/hw
 
 **Part (a)**
 
-From the law of iterated expectations it follows that:
-$$
-\begin{align}
-& \mathbb{E}_{\tau \sim P_\theta(\tau)}\left[\nabla_\theta\log \Pi_\theta(a_t \vert s_t)(b(s_t))\right]\\
-&= \mathbb{E}_{(s'_t,a'_t)\sim P_\theta(s_t',a_t')}\left[\mathbb{E}_{\tau \sim P_\theta(\tau \vert s_t=s'_t,a_t=a'_t )}\left[\nabla_\theta\log P_\theta(a_t \vert s_t)(b(s_t))\right]\right]\\
-&= \int P_\theta(s'_t,a'_t)\int P_\theta(\tau\vert s_t=s'_t,a_t=a'_t)\nabla_\theta\log P_\theta(a_t \vert s_t)(b(s_t))d\tau d(s'_t,a'_t)
-\end{align}
-$$
+![](math/a2_p1_a.png)
 
-
-where ' is used to differentiate between the state-action marginals in the outer and inner expectations. Note that:
-
-$$
-P(\tau \vert s_t=s'_t,a_t=a'_t) = \left\{
-\begin{align}
-&0 && s_t \neq s'_t \text{ or } a_t \neq a'_t\\
-&P(\tau \vert s_t=s'_t,a_t=a'_t) && \text{otherwise}
-\end{align}
-\right.
-$$
-
-
-Consequently, we have:
-$$
-\begin{align}
-& \int P_\theta(s'_t,a'_t)\int P_\theta(\tau/s_t,a_t\vert s'_t,a'_t)\nabla_\theta P_\theta(a'_t \vert s'_t)(b(s'_t))d(\tau/s_t,a_t)d(s'_t,a'_t)\\
-&= \int P_\theta(s'_t,a'_t)\int P_\theta(\tau/s_t,a_t\vert s'_t,a'_t)d(\tau/s_t,a_t)\nabla_\theta\log P_\theta(a'_t \vert s'_t)(b(s'_t))d(s'_t,a'_t)\\
-&= \int P_\theta(s'_t,a'_t)\nabla_\theta \log P_\theta(a'_t \vert s'_t)(b(s'_t))d(s'_t,a'_t)\\
-&= \int P_\theta(s'_t)P_\theta(a'_t\vert s'_t)\nabla_\theta \log P_\theta(a'_t \vert s'_t)(b(s'_t))d(s'_t,a'_t)\\
-&= \int P_\theta(s'_t)\nabla_\theta P_\theta(a'_t \vert s'_t)(b(s'_t))d(s'_t,a'_t)\\
-&= \int P_\theta(s'_t)b(s'_t)\nabla_\theta\int P_\theta(a'_t \vert s'_t)da'_tds'_t\\
-&= \int P_\theta(s'_t)b(s'_t)\nabla_\theta(1)ds'_t\\
-&= 0\\
-\end{align}
-$$
 **Part (b)**
 
-(a) Because of Markov's assumption (i.e. the future is independent of the past given the present)
+![](math/a2_p1_b.png)
 
-(b) From the law of iterated expectations it follows that:
-$$
-\begin{align}
-& \mathbb{E}_{\tau \sim P_\theta(\tau)}\left[\nabla_\theta\log P_\theta(a_t \vert s_t)(b(s_t))\right]\\
-&= \mathbb{E}_{(s'_{1:t},a'_{1:t-1}) \sim P_\theta(s'_{1:t},a'_{1:t-1})}\left[\mathbb{E}_{\tau \sim P_\theta(\tau\vert s'_{1:t},a'_{1:t-1})}\left[\nabla_\theta\log P_\theta(a_t \vert s_t)(b(s_t))\right]\right]
-\end{align}
-$$
-Using the same logic as in part (a) we have:
-$$
-\begin{align}
-& \int P_\theta(s'_{1:t},a'_{1:t-1})\int P_\theta(s_{t+1:T},a_{t:T}\vert s'_{1:t},a'_{1:t-1})d(s_{t+1:T},a_{t:T})\nabla_\theta\log P_\theta(a_t \vert s'_t)(b(s_t))d(s'_{1:t},a'_{1:t-1})\\
-&=
-\begin{split}
-&\int P_\theta(s'_{1:t},a'_{1:t-1})\int P_\theta(s_{t+1:T},a_{t+1:T}\vert s'_{1:t},a'_{1:t-1},a_t)P_\theta(a_t\vert s'_{1:t},a'_{1:t-1})\nabla_\theta\log P_\theta(a_t \vert s'_t)(b(s_t))\\
-
-&d(s_{t+1:T},a_{t:T})d(s'_{1:t},a'_{1:t-1})
-\end{split}\\
-
-&=
-\begin{split}
-& \int P_\theta(s'_{1:t},a'_{1:t-1})\int\int P_\theta(s_{t+1:T},a_{t+1:T}\vert s'_{1:t},a'_{1:t-1},a_t)P_\theta(a_t\vert s'_{1:t},a'_{1:t-1})\nabla_\theta\log P_\theta(a_t \vert s'_t)(b(s_t))\\
-
-&d(s_{t+1:T},a_{t+1:T})d(a_t)d(s'_{1:t},a'_{1:t-1})\\
-\end{split}\\
-
-&= 
-\begin{split}
-&\int P_\theta(s'_{1:t},a'_{1:t-1})\int P_\theta(s_{t+1:T},a_{t+1:T}\vert s'_{1:t},a'_{1:t-1},a_t)d(s_{t+1:T},a_{t+1:T})\int P_\theta(a_t\vert s'_{1:t},a'_{1:t-1})\\
-
-&\nabla_\theta\log P_\theta(a_t \vert s'_t)(b(s_t))d(a_t)d(s'_{1:t},a'_{1:t-1})\\
-\end{split}\\
-&= \int P_\theta(s'_{1:t},a'_{1:t-1})\int P_\theta(a_t\vert s'_t)\nabla_\theta\log P_\theta(a_t \vert s'_t)(b(s_t))d(a_t)d(s'_{1:t},a'_{1:t-1})\\
-
-&= \int P_\theta(s'_{1:t},a'_{1:t-1})b(s_t)\int \nabla_\theta P_\theta(a_t \vert s'_t)d(a_t)d(s'_{1:t},a'_{1:t-1})\\
-
-&= 0
-\end{align}
-$$
 **Problem 4**
 
 ![p4_sb](plots/a2_p4_sb.png)
